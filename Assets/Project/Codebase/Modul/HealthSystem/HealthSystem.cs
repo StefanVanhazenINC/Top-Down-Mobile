@@ -2,27 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public class HealthSystem : MonoBehaviour, IDamagable
 {
     [SerializeField] private int _maxHealth;
 
-    public UnityEvent<int> OnChangeHeath;
     private int _health;
-    private int Health 
+
+    [HideInInspector]public UnityEvent<int> OnChangeHeath;
+    [HideInInspector] public UnityEvent<int> OnChangeMaxHeath;
+    public int Health 
     {
         get => _health;
         set 
         {
             _health = value;
-            OnChangeHeath?.Invoke(value);
+            OnChangeHeath?.Invoke(_health);
+        }
+    }
+    public int MaxHealth 
+    { 
+        get => _maxHealth;
+        set 
+        {
+            _maxHealth = value;
+            OnChangeMaxHeath?.Invoke(_maxHealth);
         }
     }
 
-    private void Awake()
-    {
-        Construct();
-    }
+    [Inject]
     public void Construct() 
     {
         SettingHealth();
@@ -45,5 +54,11 @@ public class HealthSystem : MonoBehaviour, IDamagable
         {
             Death();
         }
+    }
+
+    [ContextMenu("Test")]
+    public void Test ()
+    {
+        TakeDamage(10);
     }
 }

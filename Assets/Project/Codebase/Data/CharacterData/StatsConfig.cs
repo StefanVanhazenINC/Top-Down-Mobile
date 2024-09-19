@@ -16,7 +16,7 @@ public class Stat
     [SerializeField] private int _value;
     [SerializeField] private StatsType _type;
 
-    public UnityEvent<int> OnStateChange;
+    public UnityEvent<int> OnStatChange;
 
     public int Value 
     {
@@ -24,19 +24,20 @@ public class Stat
         set 
         {
             _value = value;
-            OnStateChange?.Invoke(value);
+            OnStatChange?.Invoke(value);
         }
     }
 
     public StatsType Type { get => _type; }
 }
 
-public class StatsCharacter : MonoBehaviour
+[CreateAssetMenu(fileName = "Stats Config",menuName = "Configs/Stats System/new Stats Config")]
+public class StatsConfig : ScriptableObject
 {
     [SerializeField] private Stat[] _stats;
 
     public Stat[] Stats { get => _stats;  }
-
+    public int ValueStats { get => _stats.Length; }
     public void ChangeStats(Stat statChange,int value) 
     {
         Stat t_stat = FindStat(statChange);

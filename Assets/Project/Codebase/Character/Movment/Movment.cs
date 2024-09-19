@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public class Movment : MonoBehaviour, IMovable
 {
@@ -32,17 +33,15 @@ public class Movment : MonoBehaviour, IMovable
     /// <summary>
     /// модуль движение сам подписывется на управление и нужную ему команду 
     /// </summary>
-    private void Construct()
+    
+    [Inject]    
+    public void Construct()
     {
         OnVelocityChange = new UnityEvent<Vector3>();
         _rb = GetComponent<Rigidbody>();
         _input = GetComponent<InputHandler>();
     }
-
-    private void Awake()
-    {
-        Construct();
-    }
+   
     private void OnEnable()
     {
         _input.OnMoveEvent.AddListener(SetValueInput);

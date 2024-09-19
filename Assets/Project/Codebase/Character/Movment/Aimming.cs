@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Aimming : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Aimming : MonoBehaviour
     private InputHandler _input;
     private Vector2 _aimPosition;
     private float  _thresholdAimValue = 0.5f;
+
+    [Inject]
     private void Construct() 
     {
         _input = GetComponent<InputHandler>();
@@ -22,10 +25,6 @@ public class Aimming : MonoBehaviour
     private void OnDisable()
     {
         _input.OnMoveEvent.RemoveListener(Aim);
-    }
-    private void Awake()
-    {
-        Construct();
     }
     private void Update()
     {

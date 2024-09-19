@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Animations;
 using UnityEngine;
+using Zenject;
 
 public class AnimationController : MonoBehaviour
 {
@@ -10,15 +11,13 @@ public class AnimationController : MonoBehaviour
     [SerializeField] private Animator _animator;
     private IMovable _movable;
 
+    [Inject]
     public void Construct() 
     {
         _movable = GetComponent<IMovable>();
         _movable.OnVelocityChange.AddListener(SetFloatVelocity);
     }
-    private void Start()
-    {
-        Construct();
-    }
+   
     private void SetFloatVelocity(Vector3 value) 
     {
         _animator.SetFloat(VelocityString, value.magnitude);

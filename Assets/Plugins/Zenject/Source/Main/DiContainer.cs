@@ -3559,6 +3559,8 @@ namespace Zenject
                 .FromInstance(ValuePair.New(type, order)).WhenInjectedInto<PoolableManager>();
         }
 
+      
+
         class ProviderInfo
         {
             public ProviderInfo(
