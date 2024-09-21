@@ -11,28 +11,31 @@ public class InventoryManager : IInventoryManager
     public InventoryManager(InventoryProvider provider)
     {
         _provider = provider;
-        allItems = new IInventoryItem[0];
+        AllItems = new IInventoryItem[0];
     }
 
-    public Action<IInventoryItem> onItemAdded { get ; set ; }
-    public Action<IInventoryItem> onItemAddedFailed { get; set ; }
-    public Action<IInventoryItem> onItemRemoved { get; set; }
-    public Action<IInventoryItem> onItemRemovedFailed { get; set; }
-    public Action onRebuilt { get; set; }
+    public Action<IInventoryItem> OnItemAdded { get ; set ; }
+    public Action<IInventoryItem> OnItemAddedFailed { get; set ; }
+    public Action<IInventoryItem> OnItemRemoved { get; set; }
+    public Action<IInventoryItem> OnItemRemovedFailed { get; set; }
+    public Action<IInventoryItem> OnSelecterItem { get ; set ; }
+    public Action<IInventoryItem> OnUseItem { get ; set ; }
+    public Action OnRebuilt { get; set; }
 
-    public IInventoryItem[] allItems { get; private set; }
+    public IInventoryItem[] AllItems { get; private set; }
 
-    public bool isFull 
+    public bool IsFull 
     {
         get
         {
             return _provider.isInventoryFull;
         }
     }
+
     public void Dispose()
     {
         _provider = null;
-        allItems = null;
+        AllItems = null;
     }
     public void Rebuild()
     {
@@ -40,55 +43,59 @@ public class InventoryManager : IInventoryManager
     }
     private void Rebuild(bool silent)
     {
-        allItems = new IInventoryItem[_provider.InventoryItemCount];
+        AllItems = new IInventoryItem[_provider.InventoryItemCount];
         for (var i = 0; i < _provider.InventoryItemCount; i++)
         {
-            allItems[i] = _provider.GetInventoryItem(i);
+            AllItems[i] = _provider.GetInventoryItem(i);
         }
         if (!silent) 
         {
-            onRebuilt?.Invoke();
+            OnRebuilt?.Invoke();
         }
     }
 
     public bool Contains(IInventoryItem item) 
     {
-        Debug.Log(allItems);
-        return allItems.Contains(item);
+        Debug.Log(AllItems);
+        return AllItems.Contains(item);
     
     }
     public bool ContainsToId(IInventoryItem item, out IInventoryItem findItem)
     {
         findItem = null;
-        for (int i = 0; i < allItems.Length; i++)
+        for (int i = 0; i < AllItems.Length; i++)
         {
-            if (allItems[i].IdItem == item.IdItem)
+            if (AllItems[i].IdItem == item.IdItem)
             {
-                findItem = allItems[i];
+                findItem = AllItems[i];
                 return true;
             }
         }
         return false;
     }
 
-
+    public void SelectItem(IInventoryItem item) 
+    {
+        Debug.Log(item);
+        OnSelecterItem?.Invoke(item);
+    }
    
     public bool TryAdd(IInventoryItem item)
     {
 
-        if (!CanAdd(item) || isFull )
+        if (!CanAdd(item) || IsFull )
         {
 
-            onItemAddedFailed?.Invoke(item);
+            OnItemAddedFailed?.Invoke(item);
             return false;
         }
         if (!_provider.AddInventoryItem(item)) 
         {
-            onItemAddedFailed?.Invoke(item);
+            OnItemAddedFailed?.Invoke(item);
             return false;
         }
 
-        onItemAdded?.Invoke(item);
+        OnItemAdded?.Invoke(item);
         Rebuild(false);
         return true;
     }
@@ -108,15 +115,15 @@ public class InventoryManager : IInventoryManager
     {
         if (!CanRemove(item)) 
         {
-            onItemRemovedFailed?.Invoke(item);
+            OnItemRemovedFailed?.Invoke(item);
             return false;
         }
         if (!_provider.RemoveInventoryItem(item)) 
         {
-            onItemRemovedFailed?.Invoke(item);
+            OnItemRemovedFailed?.Invoke(item);
             return false;
         }
-        onItemRemoved?.Invoke(item);
+        OnItemRemoved?.Invoke(item);
         Rebuild(true);
         return true;
     }
@@ -125,25 +132,36 @@ public class InventoryManager : IInventoryManager
 
         if (!CanRemoveId(item, out IInventoryItem findItem))
         {
-            onItemRemovedFailed?.Invoke(item);
+            OnItemRemovedFailed?.Invoke(item);
             return false;
         }
         if (!_provider.RemoveInventoryItem(findItem))
         {
-            onItemRemovedFailed?.Invoke(item);
+            OnItemRemovedFailed?.Invoke(item);
             return false;
         }
 
-        onItemRemoved?.Invoke(findItem);
+        OnItemRemoved?.Invoke(findItem);
         Rebuild(false);
         return true;
     }
     public void Clear()
     {
-        foreach (var item in allItems)
+        foreach (var item in AllItems)
         {
             TryRemove(item);
         }
     }
 
+    public void UseItem(IInventoryItem item)
+    {
+        if (item.ConditionItem == null)
+        {
+            Debug.Log("Предмет не имеет активного действия");
+        }
+        else 
+        {
+            OnUseItem?.Invoke(item);
+        }
+    }
 }

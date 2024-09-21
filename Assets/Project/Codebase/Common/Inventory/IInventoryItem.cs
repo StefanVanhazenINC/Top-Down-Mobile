@@ -9,6 +9,7 @@ public interface IInventoryItem
     public string IdItem { get; }
     public int ValueInStack { get; set; }
     public int MaxValueInStack { get; set; }
+    public ConditionItem ConditionItem { get;  }
     public abstract bool StackIsFull();
 
 

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8dfc11ff2b508d478b3cd616c651dbd, type: 3}
-  m_Name: Acid
+  m_Name: AxeOfPower
   m_EditorClassIdentifier: 
-  _idItem: C0001
-  _icon: {fileID: 41646852, guid: 4c5b84c4b1aec2048a789222de4b9367, type: 3}
-  _itemType: 2
-  _maxValueInStack: 4
-  _prefabItem: {fileID: 919132149155446097, guid: 12b8d86c49e8ac146ae34fdf3952508b, type: 3}
-  _conditionItem: {fileID: 11400000, guid: a85f3ce78632f8146ab09d23e2a4100a, type: 2}
+  _idItem: W0001
+  _icon: {fileID: 1849536161, guid: de51f0fb6d25ab24b89d7326b9d495f2, type: 3}
+  _itemType: 0
+  _maxValueInStack: 1
+  _prefabItem: {fileID: 919132149155446097, guid: 80a928c10c8d00c458a49f52deeec5e3, type: 3}
+  _conditionItem: {fileID: 11400000, guid: da510e51cfe69dc499e4d8d540b507c2, type: 2}

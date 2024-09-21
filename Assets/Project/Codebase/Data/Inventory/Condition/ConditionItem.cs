@@ -5,5 +5,6 @@ using UnityEngine;
 
 public abstract class ConditionItem : ScriptableObject
 {
-    public abstract void UseCondition();
+    
+    public abstract void UseCondition(ConditionData data);
 }

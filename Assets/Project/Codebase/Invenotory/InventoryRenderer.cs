@@ -10,6 +10,8 @@ public class InventoryRenderer : MonoBehaviour
     [SerializeField] private ItemView[] _allView;
     private IInventoryManager _inventory;
 
+    private ItemView _selectedView;
+
     private bool _haveListeners;
 
     public Action<IInventoryItem> OnSelectItem;
@@ -18,20 +20,21 @@ public class InventoryRenderer : MonoBehaviour
     {
         if (_inventory != null && _haveListeners)
         {
-            _inventory.onRebuilt -= ReRenderAllItems;
-            _inventory.onItemAdded -= HandleItemAdded;
-            _inventory.onItemRemoved -= HandleItemRemoved;
+            _inventory.OnRebuilt -= ReRenderAllItems;
+            _inventory.OnItemAdded -= HandleItemAdded;
+            _inventory.OnItemRemoved -= HandleItemRemoved;
             _haveListeners = false;
+            ClearViewItems();
         }
     }
     void OnEnable()
     {
         if (_inventory != null && !_haveListeners)
         {
-
-            _inventory.onRebuilt += ReRenderAllItems;
-            _inventory.onItemAdded += HandleItemAdded;
-            _inventory.onItemRemoved += HandleItemRemoved;
+            SetViewItems();
+            _inventory.OnRebuilt += ReRenderAllItems;
+            _inventory.OnItemAdded += HandleItemAdded;
+            _inventory.OnItemRemoved += HandleItemRemoved;
             _haveListeners = true;
 
             ReRenderAllItems();
@@ -41,16 +44,27 @@ public class InventoryRenderer : MonoBehaviour
     {
         OnDisable();
         _inventory = inventoryManager ?? throw new ArgumentNullException(nameof(inventoryManager));
-        SetViewItems();
         OnEnable();
         
     }
     public void SetViewItems() 
     {
-        Debug.Log("SetView");
         for (int i = 0; i < _allView.Length; i++)
         {
-            _allView[i].OnSelectItemView = SelectItem;
+            _allView[i].OnSelectItemView = HandleSelectItem;
+            _allView[i].OnUseItem = HandleUseItem;
+            _allView[i].OnDropItem = HandleDropItem;
+            _allView[i].ClearView();
+
+        }
+    }
+    public void ClearViewItems()
+    {
+        for (int i = 0; i < _allView.Length; i++)
+        {
+            _allView[i].OnSelectItemView = null;
+            _allView[i].OnUseItem = null;
+            _allView[i].OnDropItem = null;
             _allView[i].ClearView();
 
         }
@@ -65,7 +79,7 @@ public class InventoryRenderer : MonoBehaviour
         _items.Clear();
 
         // Add all items
-        foreach (var item in _inventory.allItems)
+        foreach (var item in _inventory.AllItems)
         {
            HandleItemAdded(item);
         }
@@ -86,13 +100,22 @@ public class InventoryRenderer : MonoBehaviour
             view.ClearView();
         }
     }
-    public void SelectItem(ItemView view) 
+    public void HandleSelectItem(ItemView view) 
     {
         IInventoryItem key = _items.FirstOrDefault(x => x.Value == view).Key;
-        Debug.Log(key);
+        _selectedView = view;
         OnSelectItem?.Invoke(key);
+        _inventory.SelectItem(key);
     }
-    //находить предмет по ключу визула 
+    public void HandleUseItem(ItemView view) 
+    {
+        Debug.Log("use");
+        _inventory.UseItem(SelectItemToView(view)); 
+    }
+    public void HandleDropItem(ItemView view)
+    {
+        _inventory.TryRemove(SelectItemToView(view));
+    }
     public ItemView TakeView() 
     {
         for (int i = 0; i < _allView.Length; i++)
@@ -104,5 +127,11 @@ public class InventoryRenderer : MonoBehaviour
         }
         Debug.LogError("Нету свободных префабов ячеек");
         return null;
+    }
+
+    private IInventoryItem SelectItemToView(ItemView view) 
+    {
+        IInventoryItem key = _items.FirstOrDefault(x => x.Value == view).Key;
+        return key;
     }
 }

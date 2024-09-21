@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68c161f98348894eb7348e96ca98b6d, type: 3}
   m_Name: BuffSpeed
   m_EditorClassIdentifier: 
+  _value: 5
+  _effectToHeal: 0
+  _consumableType: 0
+  _statType: 1

@@ -5,25 +5,26 @@ using UnityEngine;
 
 public interface IInventoryManager : IDisposable
 {
-    Action<IInventoryItem> onItemAdded { get; set; }
+    Action<IInventoryItem> OnItemAdded { get; set; }
+    Action<IInventoryItem> OnSelecterItem{ get; set; }
 
 
-    Action<IInventoryItem> onItemAddedFailed { get; set; }
+    Action<IInventoryItem> OnItemAddedFailed { get; set; }
 
 
-    Action<IInventoryItem> onItemRemoved { get; set; }
+    Action<IInventoryItem> OnItemRemoved { get; set; }
 
 
 
-    Action onRebuilt { get; set; }
+    Action OnRebuilt { get; set; }
 
 
-    IInventoryItem[] allItems { get; }
+    IInventoryItem[] AllItems { get; }
 
 
     bool Contains(IInventoryItem item);
 
-    bool isFull { get; }
+    bool IsFull { get; }
 
 
     bool CanAdd(IInventoryItem item);
@@ -34,6 +35,10 @@ public interface IInventoryManager : IDisposable
     bool CanRemove(IInventoryItem item);
 
     bool TryRemove(IInventoryItem item);
+
+    void SelectItem(IInventoryItem item);
+
+    void UseItem(IInventoryItem item);
 
     void Clear();
 

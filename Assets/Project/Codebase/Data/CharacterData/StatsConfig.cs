@@ -43,6 +43,24 @@ public class StatsConfig : ScriptableObject
         Stat t_stat = FindStat(statChange);
         t_stat.Value = value;
     }
+    public void ChangeStats(StatsType statChange, int value)
+    {
+        Stat t_stat = FindStat(statChange);
+        t_stat.Value = value;
+    }
+    public Stat FindStat(StatsType statChange) 
+    {
+        Stat t_stat = null;
+        for (int i = 0; i < Stats.Length; i++)
+        {
+            if (Stats[i].Type == statChange)
+            {
+                t_stat = Stats[i];
+                break;
+            }
+        }
+        return t_stat;
+    }
     public Stat FindStat(Stat statChange) 
     {
         Stat t_stat = null;

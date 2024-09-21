@@ -16,4 +16,5 @@ MonoBehaviour:
   _icon: {fileID: 1202933527, guid: 4c5b84c4b1aec2048a789222de4b9367, type: 3}
   _itemType: 2
   _maxValueInStack: 4
-  _prefabItem: {fileID: 0}
+  _prefabItem: {fileID: 919132149155446097, guid: 7070d356887acc44591f1cea15919267, type: 3}
+  _conditionItem: {fileID: 11400000, guid: 128a798d884c31e42831e800acd0b008, type: 2}

@@ -6,6 +6,18 @@ public class ItemContainer : MonoBehaviour
 {
     [SerializeField] private ItemDefinition _itemDefinition;
 
+    private void Start()
+    {
+        SetVisual();
+    }
+
+    private void SetVisual() 
+    {
+        if (_itemDefinition) 
+        {
+            Instantiate(_itemDefinition.PrefabItem, transform) ;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {

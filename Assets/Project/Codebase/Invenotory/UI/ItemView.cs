@@ -16,7 +16,8 @@ public class ItemView : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
 
     public bool IsClear { get => _isClear;  }
     public Action<ItemView> OnSelectItemView;
-
+    public Action<ItemView> OnUseItem;
+    public Action<ItemView> OnDropItem;
     public void SetView(IInventoryItem item) 
     {
         _icon.sprite = item.Icon;
@@ -29,6 +30,14 @@ public class ItemView : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
     {
         _isClear = true;
         gameObject.SetActive(false);
+    }
+    public void DropItem() 
+    {
+        OnDropItem?.Invoke(this);
+    }
+    public void UseItem() 
+    {
+        OnUseItem?.Invoke(this);
     }
 
     public void OnPointerClick(PointerEventData eventData)//активация под меню

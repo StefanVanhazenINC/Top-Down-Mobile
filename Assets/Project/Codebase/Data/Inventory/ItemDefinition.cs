@@ -10,7 +10,7 @@ public class ItemDefinition : ScriptableObject, IInventoryItem
     [SerializeField] private ItemTypes _itemType;
     [SerializeField] private int _maxValueInStack = 1;
     [SerializeField] private GameObject _prefabItem;
-
+    [SerializeField] private ConditionItem _conditionItem;
     private int _valueInStack = 1;
 
     public string Name { get => name; set => name = value; }
@@ -19,6 +19,8 @@ public class ItemDefinition : ScriptableObject, IInventoryItem
     public int ValueInStack { get => _valueInStack; set => _valueInStack = value; }
     public ItemTypes ItemType { get => _itemType; }
     public int MaxValueInStack { get => _maxValueInStack; set => _maxValueInStack= value; }
+    public ConditionItem ConditionItem { get => _conditionItem; }
+    public GameObject PrefabItem { get => _prefabItem; }
 
     public bool StackIsFull() 
     {

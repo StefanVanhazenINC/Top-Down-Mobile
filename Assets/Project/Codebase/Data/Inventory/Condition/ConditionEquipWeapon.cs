@@ -7,7 +7,7 @@ using UnityEngine;
 public class ConditionEquipWeapon : ConditionItem
 {
     [SerializeField] private GameObject _weapon;
-    public override void UseCondition()
+    public override void UseCondition(ConditionData data)
     {
         Debug.Log("Экиперовать предмет" + _weapon);
     }

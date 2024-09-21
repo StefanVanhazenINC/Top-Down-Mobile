@@ -25,12 +25,12 @@ public class InventoryStorage : MonoBehaviour
         SetDefaultItem();
         _inventoryRenderer.SetInvetory(_inventory);
 
-        _inventory.onItemRemovedFailed += (item) =>
+        _inventory.OnItemRemovedFailed += (item) =>
         {
             OnItemRemoveFailde(item);
         };
 
-        _inventory.onItemAddedFailed += (item) =>
+        _inventory.OnItemAddedFailed += (item) =>
         {
             OnItemAddedFailde(item);
         };

@@ -12,4 +12,9 @@ public class StatsController : MonoBehaviour
     {
         _statsConfig = statsConfig;
     }
+
+    public void ChangeStat(StatsType statChange, int value) 
+    {
+        _statsConfig.ChangeStats(statChange, value);
+    }
 }

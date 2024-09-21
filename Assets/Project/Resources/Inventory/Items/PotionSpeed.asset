@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8dfc11ff2b508d478b3cd616c651dbd, type: 3}
-  m_Name: Acid
+  m_Name: PotionSpeed
   m_EditorClassIdentifier: 
-  _idItem: C0001
-  _icon: {fileID: 41646852, guid: 4c5b84c4b1aec2048a789222de4b9367, type: 3}
-  _itemType: 2
-  _maxValueInStack: 4
-  _prefabItem: {fileID: 919132149155446097, guid: 12b8d86c49e8ac146ae34fdf3952508b, type: 3}
-  _conditionItem: {fileID: 11400000, guid: a85f3ce78632f8146ab09d23e2a4100a, type: 2}
+  _idItem: C0003
+  _icon: {fileID: 2005205088, guid: c76a4a25aea559b43b4f7effa0a84073, type: 3}
+  _itemType: 0
+  _maxValueInStack: 1
+  _prefabItem: {fileID: 919132149155446097, guid: 1fb06ebb6c13f45479e9c3c40516ffed, type: 3}
+  _conditionItem: {fileID: 11400000, guid: 085e9f3ec43f8244f9c614925611f604, type: 2}

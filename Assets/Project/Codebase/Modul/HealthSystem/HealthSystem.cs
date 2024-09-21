@@ -18,6 +18,14 @@ public class HealthSystem : MonoBehaviour, IDamagable
         set 
         {
             _health = value;
+            if (_health<0)
+            {
+                _health = 0;
+            }
+            if (_health>_maxHealth) 
+            {
+                _health = _maxHealth;
+            }
             OnChangeHeath?.Invoke(_health);
         }
     }
@@ -55,10 +63,12 @@ public class HealthSystem : MonoBehaviour, IDamagable
             Death();
         }
     }
-
-    [ContextMenu("Test")]
-    public void Test ()
+    public void TakeHeal(int value) 
     {
-        TakeDamage(10);
+        if (value > 0 && Health > 0)
+        {
+            Health += value;
+        }
     }
+   
 }
