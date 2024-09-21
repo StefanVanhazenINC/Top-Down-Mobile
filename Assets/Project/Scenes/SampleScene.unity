@@ -2923,6 +2923,7 @@ GameObject:
   - component: {fileID: 1184411669}
   - component: {fileID: 1184411670}
   - component: {fileID: 1184411671}
+  - component: {fileID: 1184411672}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3039,7 +3040,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bodyRotation: {fileID: 756543211}
-  _rotationSpeed: 10
 --- !u!114 &1184411666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3084,7 +3084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb32a95a8c003514d8565faa64efb772, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _statsConfig: {fileID: 0}
+  _statsConfig: {fileID: 11400000, guid: 9cf83b34d4b36ed4f952b1d27d5a165e, type: 2}
 --- !u!114 &1184411670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3115,9 +3115,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07234e58a7c8b64bb49b4f92ff87881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerInventory: {fileID: 1184411670}
   _playerStats: {fileID: 1184411669}
   _palyerHealth: {fileID: 1184411668}
+--- !u!114 &1184411672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184411659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3498c731649f63745937b4ce8f5978aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerInventoryStorage: {fileID: 0}
 --- !u!1 &1258510077
 GameObject:
   m_ObjectHideFlags: 0
@@ -3608,6 +3620,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthSystemPlayer: {fileID: 1184411668}
   _playerStatsConfig: {fileID: 11400000, guid: 9cf83b34d4b36ed4f952b1d27d5a165e, type: 2}
+  _playerInventory: {fileID: 1184411670}
+  _itemLibrary: {fileID: 11400000, guid: 737134e3543608d46b54440ee014e9e3, type: 2}
 --- !u!1 &1349482885
 GameObject:
   m_ObjectHideFlags: 0

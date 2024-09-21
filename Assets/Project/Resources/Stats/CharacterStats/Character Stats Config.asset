@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Character Stats Config
   m_EditorClassIdentifier: 
   _stats:
-  - _value: 4
-    _type: 0
-    OnStateChange:
-      m_PersistentCalls:
-        m_Calls: []
   - _value: 2
-    _type: 1
-    OnStateChange:
+    _type: 0
+    OnStatChange:
       m_PersistentCalls:
         m_Calls: []
   - _value: 1
+    _type: 1
+    OnStatChange:
+      m_PersistentCalls:
+        m_Calls: []
+  - _value: 2
     _type: 2
-    OnStateChange:
+    OnStatChange:
       m_PersistentCalls:
         m_Calls: []

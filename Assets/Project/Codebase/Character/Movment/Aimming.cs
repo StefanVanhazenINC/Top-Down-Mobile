@@ -6,7 +6,6 @@ using Zenject;
 public class Aimming : MonoBehaviour
 {
     [SerializeField] private Transform _bodyRotation;
-    [SerializeField] private float _rotationSpeed = 10;
 
     private InputHandler _input;
     private Vector2 _aimPosition;

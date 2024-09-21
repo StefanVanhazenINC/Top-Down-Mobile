@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class InventoryStorage : MonoBehaviour
 {
@@ -13,16 +14,14 @@ public class InventoryStorage : MonoBehaviour
     private InventoryProvider _inventoryProvider;
 
     public InventoryManager Inventory { get => _inventory; }
+    public ItemDefinition[] BaseItem { get => _baseItem; set => _baseItem = value; }
 
-    private void Awake() 
-    {
-        Construct();
-    }
-    private void Construct() 
+    [Inject]
+    public void Construct() 
     {
         _inventoryProvider = new InventoryProvider( _maximumAlowedItemCount, _allowedItem);
         _inventory = new InventoryManager(_inventoryProvider);
-        SetDefaultItem();
+        
         _inventoryRenderer.SetInvetory(_inventory);
 
         _inventory.OnItemRemovedFailed += (item) =>
@@ -35,7 +34,7 @@ public class InventoryStorage : MonoBehaviour
             OnItemAddedFailde(item);
         };
     }
-    private void SetDefaultItem() 
+    public void SetDefaultItem() 
     {
         for (int i = 0; i < _baseItem.Length; i++)
         {

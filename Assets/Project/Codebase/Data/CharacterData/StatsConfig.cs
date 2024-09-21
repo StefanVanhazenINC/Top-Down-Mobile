@@ -41,12 +41,12 @@ public class StatsConfig : ScriptableObject
     public void ChangeStats(Stat statChange,int value) 
     {
         Stat t_stat = FindStat(statChange);
-        t_stat.Value = value;
+        t_stat.Value += value;
     }
     public void ChangeStats(StatsType statChange, int value)
     {
         Stat t_stat = FindStat(statChange);
-        t_stat.Value = value;
+        t_stat.Value += value;
     }
     public Stat FindStat(StatsType statChange) 
     {

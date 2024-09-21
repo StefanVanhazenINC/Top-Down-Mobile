@@ -13,7 +13,7 @@ public class InventoryRenderer : MonoBehaviour
     private ItemView _selectedView;
 
     private bool _haveListeners;
-
+    private ItemView _itemView;
     public Action<IInventoryItem> OnSelectItem;
     private Dictionary<IInventoryItem, ItemView> _items = new Dictionary<IInventoryItem, ItemView>();
     void OnDisable()
@@ -102,6 +102,13 @@ public class InventoryRenderer : MonoBehaviour
     }
     public void HandleSelectItem(ItemView view) 
     {
+        Debug.Log(view);
+        if (_itemView != null) 
+        {
+            _itemView.Deselcet();
+        }
+        _itemView = view;
+        _itemView.Select();
         IInventoryItem key = _items.FirstOrDefault(x => x.Value == view).Key;
         _selectedView = view;
         OnSelectItem?.Invoke(key);
@@ -114,7 +121,7 @@ public class InventoryRenderer : MonoBehaviour
     }
     public void HandleDropItem(ItemView view)
     {
-        _inventory.TryRemove(SelectItemToView(view));
+        (_inventory as InventoryManager).TryRemoveToId(SelectItemToView(view));
     }
     public ItemView TakeView() 
     {

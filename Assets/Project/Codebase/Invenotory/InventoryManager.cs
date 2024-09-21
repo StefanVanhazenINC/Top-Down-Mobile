@@ -127,7 +127,7 @@ public class InventoryManager : IInventoryManager
         Rebuild(true);
         return true;
     }
-    public bool TryRemoveToId(IInventoryItem item, int value = 1)
+    public bool TryRemoveToId(IInventoryItem item)
     {
 
         if (!CanRemoveId(item, out IInventoryItem findItem))

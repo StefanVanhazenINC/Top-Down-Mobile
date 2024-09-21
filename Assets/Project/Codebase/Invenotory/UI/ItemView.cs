@@ -6,7 +6,7 @@ using System;
 using TMPro;
 using UnityEngine.UI;
 
-public class ItemView : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
+public class ItemView : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private TMP_Text _titleItem;
     [SerializeField] private TMP_Text _amountItem;
@@ -39,16 +39,20 @@ public class ItemView : MonoBehaviour, IPointerClickHandler, IPointerExitHandler
     {
         OnUseItem?.Invoke(this);
     }
-
-    public void OnPointerClick(PointerEventData eventData)//активация под меню
+    public void Select() 
+    {
+        _buttonMenu.SetActive(true);
+    }
+    public void Deselcet() 
+    {
+        _buttonMenu.SetActive(false);
+        _buttonMenu.SetActive(false);
+    }
+    public void OnPointerClick(PointerEventData eventData)
     {
         OnSelectItemView?.Invoke(this);
         _buttonMenu.SetActive(true);
     }
 
-    public void OnPointerExit(PointerEventData eventData)//выключение под меню
-    {
-        _buttonMenu.SetActive(false);
-        _buttonMenu.SetActive(false);
-    }
+   
 }
